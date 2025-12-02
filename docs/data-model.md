@@ -9,7 +9,7 @@ Represents a user of the system.
 - `username`: The user's username.
 - `email`: The user's email address.
 - `password`: The user's hashed password.
-- `roles`: The roles assigned to the user (e.g., VERIFIED_USER, REGISTERED, IDENTIFIED).
+- `roles`: The roles assigned to the user (e.g., VERIFIED_USER, REGISTERED, IDENTIFIED, USER_ADMIN).
 
 ## Topic
 Represents a subject for discussion and decision-making.
