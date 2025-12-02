@@ -3,6 +3,19 @@
 liquidVote provides a platform for voting and decision-making using the Liquid Democracy model. 
 It allows users to delegate their voting power to trusted representatives while retaining the ability to vote directly on issues.
 
+## References
+* https://en.wikipedia.org/wiki/Liquid_democracy
+* https://en.wikipedia.org/wiki/LiquidFeedback
+* Internal documentation: 
+  * [Data Model](docs/data-model.md)
+  * [API Documentation](api-documentation.md)
+  * [System Architecture](system-architecture.md)
+  * [Deployment Guide](deployment-guide.md)
+  * [Developer Guide](developer-guide.md)
+  * [User Guide](user-guide.md)
+  * [Testing Guide](testing-guide.md)
+  * [Examples](examples.md)
+
 ## Features
 - User registration and authentication
 - Proposal creation and management
@@ -22,11 +35,17 @@ liquidVote is built using a microservices architecture, leveraging technologies 
 * Identified Users (High)
   * Identity Verification.
 
-### Toppics / Issues
+### Topics / Issues
 A Topic describes a subject for discussion and decision-making. 
 Each Topic can have multiple Proposals associated with it.
 * Hierarchy of Topics
 * Mapping Proposals to the Proposals of the parent Topic
+* Topics has phases
+  * Admission Phase
+  * Discussion Phase
+  * Proposal Phase
+  * Voting Phase
+  * Results Phase
 
 ### Circles
 A Circle is a group of users who share common interests or goals.

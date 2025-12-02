@@ -10,4 +10,5 @@ public class LiquidVoteApplication {
         SpringApplication.run(LiquidVoteApplication.class, args);
     }
 
+
 }
