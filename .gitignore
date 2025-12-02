@@ -33,3 +33,5 @@ build/
 
 ### Node.js ###
 /administration/node_modules/
+/administration/src/main/frontend/dist/
+/administration/src/main/frontend/node_modules/
