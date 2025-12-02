@@ -1,4 +1,4 @@
-package de.schmiereck.liquidVote.user;
+package de.schmiereck.liquidVote.shared;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

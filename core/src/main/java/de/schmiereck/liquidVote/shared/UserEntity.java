@@ -1,4 +1,4 @@
-package de.schmiereck.liquidVote.user;
+package de.schmiereck.liquidVote.shared;
 
 import jakarta.persistence.CollectionTable;
 import jakarta.persistence.Column;

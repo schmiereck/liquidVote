@@ -1,4 +1,4 @@
-package de.schmiereck.liquidVote.user;
+package de.schmiereck.liquidVote.shared;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -10,4 +10,3 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
     boolean existsByEmail(final String email);
 }
-

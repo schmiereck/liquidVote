@@ -1,4 +1,4 @@
-package de.schmiereck.liquidVote.user;
+package de.schmiereck.liquidVote.shared;
 
 public enum UserRole {
     REGISTERED,
