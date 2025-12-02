@@ -108,7 +108,7 @@ databaseChangeLog:
                   value: admin@example.com
               - column:
                   name: password
-                  value: $2a$10$Dow1Z6FJi1dV0t1Ik5dUvO7o8GZFODdgNpTiFqouBZfyqCkCmZom6
+                  value: $2a$10$VhFiGJk5QVr5zIxgdLMKCeknoNDAiBRHvVSCEV4VpWwfvX2gYdYkO
               - column:
                   name: created_at
                   defaultValueComputed: CURRENT_TIMESTAMP
