@@ -32,7 +32,7 @@ class UserServiceIntegrationTest {
         userEntity.setUsername("testUser");
         userEntity.setEmail("test@example.com");
         userEntity.setPassword("secret");
-        userEntity.setRoles("REGISTERED");
+        userEntity.setRoles(java.util.List.of(UserRole.REGISTERED));
 
         final UserEntity createdUserEntity = this.userService.createUser(userEntity);
         assertThat(createdUserEntity.getId()).isNotNull();
@@ -43,10 +43,12 @@ class UserServiceIntegrationTest {
         final UserEntity updatedUserEntity = this.userService.updateUser(createdUserEntity.getId(), user -> {
             user.setLastName("Updated");
             user.setEmail("user@example.com");
+            user.setRoles(java.util.List.of(UserRole.REGISTERED, UserRole.VERIFIED_USER));
         });
 
         assertThat(updatedUserEntity.getLastName()).isEqualTo("Updated");
         assertThat(updatedUserEntity.getEmail()).isEqualTo("user@example.com");
+        assertThat(updatedUserEntity.getRoles()).containsExactlyInAnyOrder(UserRole.REGISTERED, UserRole.VERIFIED_USER);
 
         this.userService.deleteUser(updatedUserEntity.getId());
         this.entityManager.flush();

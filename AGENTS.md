@@ -12,3 +12,7 @@ Example: userEntityId
 For Objects allways use the complete name of the entity as suffix and a specialized prefix for the meaning if needed.
 Example: createdUserEntity
 Example: var userEntity = ...
+
+## Database
+If there are changes in the Entities, create allways Liquibase-Changesets for the database migration.
+see: [changelog](src/main/resources/db/changelog)
