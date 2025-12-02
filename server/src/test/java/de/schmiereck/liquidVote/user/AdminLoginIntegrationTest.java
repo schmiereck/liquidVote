@@ -30,7 +30,7 @@ class AdminLoginIntegrationTest {
 
         assertThat(admin.getEmail()).isEqualTo("admin@example.com");
         assertThat(admin.getRoles()).contains(UserRole.USER_ADMIN);
+        System.out.println("Seeded admin password hash: " + admin.getPassword());
         assertThat(this.passwordEncoder.matches("Admin123!", admin.getPassword())).isTrue();
     }
 }
-

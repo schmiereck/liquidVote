@@ -124,3 +124,15 @@ databaseChangeLog:
               - column:
                   name: role
                   value: USER_ADMIN
+  - changeSet:
+      id: 2025-12-02-admin-password-reset
+      author: copilot
+      changes:
+        - update:
+            tableName: users
+            columns:
+              - column:
+                  name: password
+                  value: $2a$10$CEUc6.ntpRTKdTgffaZXDez2ly0vCKC4FepvkL0Vgb3zWRItQ5w1C
+            where: username='admin'
+
