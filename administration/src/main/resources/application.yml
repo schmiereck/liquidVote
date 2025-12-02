@@ -1,0 +1,31 @@
+server:
+  port: 9090
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: administration
+  datasource:
+    url: jdbc:h2:mem:administration;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+  graphql:
+    path: /graphql
+
+keycloak:
+  issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/liquidvote}
+  resource: ${KEYCLOAK_CLIENT_ID:administration-api}
+
+logging:
+  level:
+    org.springframework.security: INFO
+

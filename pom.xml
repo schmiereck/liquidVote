@@ -32,6 +32,7 @@
     </properties>
 
     <modules>
+        <module>core</module>
         <module>server</module>
         <module>administration</module>
     </modules>

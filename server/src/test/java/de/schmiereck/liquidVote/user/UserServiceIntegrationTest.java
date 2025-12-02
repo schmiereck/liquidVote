@@ -1,5 +1,9 @@
 package de.schmiereck.liquidVote.user;
 
+import de.schmiereck.liquidVote.shared.UserEntity;
+import de.schmiereck.liquidVote.shared.UserRepository;
+import de.schmiereck.liquidVote.shared.UserRole;
+import de.schmiereck.liquidVote.shared.UserService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

@@ -1,5 +1,14 @@
 # Agent Development Guidelines
 
+## Tools
+Use IntelliJ IDEA as IDE.
+
+NPM Path:
+C:\Users\SCMJ178\AppData\Roaming\JetBrains\IntelliJIdea2025.2\node\versions\24.11.1\npm.cmd
+
+Maven Path:
+mvn.cmd
+
 ## Code-Style
 
 Use final for all variables which are not re-assigned.
