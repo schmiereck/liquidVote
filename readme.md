@@ -64,3 +64,23 @@ Transitive delegation of votes is supported, allowing users to delegate their vo
 * Delegated Vote
     * Delegate to a trusted representative User.
     * Delegate to a trusted Circle.
+
+## Administration Module
+This project now contains an `administration` submodule that bundles the Keycloak-protected React UI and its Spring Boot GraphQL backend.
+
+### Build locally
+```powershell
+cd C:\Users\SCMJ178\IdeaProjects\liquidVote
+mvn -pl administration clean test
+```
+The command runs `npm install` / `npm run build` in `administration/src/main/frontend` and copies the resulting bundle into `static/admin` inside the WAR.
+
+### Keycloak configuration
+Set these variables (backend + frontend) before running the module so tokens resolve correctly:
+- `VITE_KEYCLOAK_URL`
+- `VITE_KEYCLOAK_REALM`
+- `VITE_KEYCLOAK_CLIENT_ID`
+- `KEYCLOAK_ISSUER_URI`
+- `KEYCLOAK_CLIENT_ID`
+
+Only users with the `userAdmin` role can access the GraphQL endpoints/UI exposed under `/admin`.

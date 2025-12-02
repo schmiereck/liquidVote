@@ -96,3 +96,20 @@ parent.
 To prevent this, the project POM contains empty overrides for these elements.
 If you manually switch to a different parent and actually want the inheritance, you need to remove those overrides.
 
+## Administration Module
+The `administration` submodule packages the Keycloak-protected React UI and its Spring Boot GraphQL backend. To build it locally run:
+```powershell
+cd C:\Users\SCMJ178\IdeaProjects\liquidVote
+mvn -pl administration clean test
+```
+This triggers the React build (via `npm install` / `npm run build`) and bundles the resulting files under `static/admin` inside the WAR.
+
+### Keycloak & Environment
+Set the following variables (for both backend and frontend) to point at your realm-specific gateway:
+- `VITE_KEYCLOAK_URL`
+- `VITE_KEYCLOAK_REALM`
+- `VITE_KEYCLOAK_CLIENT_ID`
+- `KEYCLOAK_ISSUER_URI`
+- `KEYCLOAK_CLIENT_ID`
+
+The admin GraphQL endpoints require the `userAdmin` role. Use the new `/admin` route to access the UI once the WAR is deployed.
