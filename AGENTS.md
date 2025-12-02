@@ -5,9 +5,10 @@ Use IntelliJ IDEA as IDE.
 
 NPM Path:
 C:\Users\SCMJ178\AppData\Roaming\JetBrains\IntelliJIdea2025.2\node\versions\24.11.1\npm.cmd
+C:\Users\SCMJ178\AppData\Roaming\JetBrains\IntelliJIdea2025.2\node\versions\24.11.1\node.exe
 
 Maven Path:
-mvn.cmd
+mvn
 
 ## Code-Style
 

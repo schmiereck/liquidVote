@@ -32,6 +32,12 @@ public class UserService {
         return this.userRepository.findAll();
     }
 
+    @Transactional(readOnly = true)
+    public UserEntity readUserByUserEntityId(final Long userEntityId) {
+        return this.userRepository.findById(userEntityId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found: " + userEntityId));
+    }
+
     public void deleteUser(final Long userEntityId) {
         this.userRepository.deleteById(userEntityId);
     }

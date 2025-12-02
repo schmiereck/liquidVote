@@ -28,11 +28,8 @@ public class UserGraphQLController {
 
     @QueryMapping
     @PreAuthorize("hasAuthority('ROLE_userAdmin')")
-    public UserEntity user(@Argument Long id) {
-        return this.userService.listUsers().stream()
-                .filter(user -> user.getId().equals(id))
-                .findFirst()
-                .orElse(null);
+    public UserEntity user(@Argument final Long userEntityId) {
+        return this.userService.readUserByUserEntityId(userEntityId);
     }
 
     @MutationMapping
@@ -45,14 +42,14 @@ public class UserGraphQLController {
 
     @MutationMapping
     @PreAuthorize("hasAuthority('ROLE_userAdmin')")
-    public UserEntity updateUser(@Argument Long id, @Argument UserInput input) {
-        return this.userService.updateUser(id, user -> applyInput(user, input));
+    public UserEntity updateUser(@Argument final Long userEntityId, @Argument final UserInput input) {
+        return this.userService.updateUser(userEntityId, user -> applyInput(user, input));
     }
 
     @MutationMapping
     @PreAuthorize("hasAuthority('ROLE_userAdmin')")
-    public boolean deleteUser(@Argument Long id) {
-        this.userService.deleteUser(id);
+    public boolean deleteUser(@Argument final Long userEntityId) {
+        this.userService.deleteUser(userEntityId);
         return true;
     }
 
