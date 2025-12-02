@@ -3,8 +3,9 @@ This section describes the data model used in the application.
 
 ## User
 Represents a user of the system.
-
 - `id`: Unique identifier for the user.
+- `firstName`: The user's first name.
+- `lastName`: The user's last name.
 - `username`: The user's username.
 - `email`: The user's email address.
 - `password`: The user's hashed password.
