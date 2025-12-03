@@ -20,12 +20,18 @@ spring:
     show-sql: true
   graphql:
     path: /graphql
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/liquidvote}
+          jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://localhost:8080/realms/liquidvote/protocol/openid-connect/certs}
 
 keycloak:
   issuer-uri: ${KEYCLOAK_ISSUER_URI:http://localhost:8080/realms/liquidvote}
+  jwk-set-uri: ${KEYCLOAK_JWK_SET_URI:http://localhost:8080/realms/liquidvote/protocol/openid-connect/certs}
   resource: ${KEYCLOAK_CLIENT_ID:administration-api}
 
 logging:
   level:
     org.springframework.security: INFO
-
