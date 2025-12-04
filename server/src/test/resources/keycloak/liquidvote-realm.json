@@ -1,0 +1,47 @@
+{
+  "realm": "liquidvote",
+  "enabled": true,
+  "users": [
+    {
+      "username": "admin",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Admin",
+      "lastName": "User",
+      "email": "admin@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "admin",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "userAdmin"
+      ]
+    }
+  ],
+  "roles": {
+    "realm": [
+      {
+        "name": "userAdmin",
+        "description": "Administration UI access"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "admin-web",
+      "directAccessGrantsEnabled": true,
+      "publicClient": false,
+      "secret": "admin-web-secret",
+      "redirectUris": [
+        "http://localhost:8080/admin/*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ]
+}
+
