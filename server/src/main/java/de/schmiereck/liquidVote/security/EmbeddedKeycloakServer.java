@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
+import java.nio.file.Paths;
 
 @Component
 @ConditionalOnProperty(value = "embedded.keycloak.enabled", havingValue = "true", matchIfMissing = true)
@@ -27,19 +28,22 @@ public class EmbeddedKeycloakServer {
     private final String httpPort;
     private final String hostname;
     private final boolean devMode;
+    private final String projectDir;
 
     public EmbeddedKeycloakServer(ResourceLoader resourceLoader,
                                   @Value("${embedded.keycloak.import-path:classpath:keycloak/liquidvote-realm.json}") String importPath,
                                   @Value("${embedded.keycloak.config:classpath:keycloak/embedded-keycloak.conf}") String configFile,
                                   @Value("${embedded.keycloak.port:8180}") String httpPort,
                                   @Value("${embedded.keycloak.host:0.0.0.0}") String hostname,
-                                  @Value("${embedded.keycloak.dev-mode:true}") boolean devMode) {
+                                  @Value("${embedded.keycloak.dev-mode:true}") boolean devMode,
+                                  @Value("${embedded.keycloak.project-dir:#{null}}") String projectDir) {
         this.resourceLoader = resourceLoader;
         this.importPath = importPath;
         this.configFile = configFile;
         this.httpPort = httpPort;
         this.hostname = hostname;
         this.devMode = devMode;
+        this.projectDir = projectDir;
     }
 
     private EmbeddedKeycloakApplication runner;
@@ -58,7 +62,9 @@ public class EmbeddedKeycloakServer {
             Integer.parseInt(httpPort),
             resolvedConfig,
             resolvedImport,
-            devMode);
+            devMode,
+            //"C:\\Users\\SCMJ178\\IdeaProjects\\liquidVote\\server\\target\\quarkus");
+            resolveProjectDir());
         runner.start();
     }
 
@@ -72,6 +78,34 @@ public class EmbeddedKeycloakServer {
             Files.copy(stream, tempFile, StandardCopyOption.REPLACE_EXISTING);
         }
         return tempFile.toAbsolutePath().toString();
+    }
+
+    private String resolveProjectDir() {
+        if (projectDir != null && !projectDir.isBlank()) {
+            return projectDir;
+        }
+        String envProjectDir = System.getenv("KEYCLOAK_PROJECT_DIR");
+        if (envProjectDir != null && !envProjectDir.isBlank()) {
+            return envProjectDir;
+        }
+        Path moduleRoot = locateServerModuleRoot();
+        Path unpackedDir = moduleRoot.resolve("target").resolve("embedded-keycloak").resolve("keycloak-" + org.keycloak.common.Version.VERSION);
+        if (Files.exists(unpackedDir)) {
+            return unpackedDir.toString();
+        }
+        return moduleRoot.toString();
+    }
+
+    private Path locateServerModuleRoot() {
+        Path cwd = Paths.get("").toAbsolutePath();
+        if (Files.exists(cwd.resolve("pom.xml")) && "server".equals(cwd.getFileName().toString())) {
+            return cwd;
+        }
+        Path moduleDir = cwd.resolve("server");
+        if (Files.exists(moduleDir.resolve("pom.xml"))) {
+            return moduleDir;
+        }
+        return cwd;
     }
 
     @PreDestroy

@@ -1,11 +1,12 @@
 package de.schmiereck.liquidVote.security;
 
-import io.quarkus.runtime.ApplicationLifecycleManager;
+import io.quarkus.runtime.Quarkus;
 import org.keycloak.quarkus.runtime.KeycloakMain;
 import org.keycloak.quarkus.runtime.cli.ExecutionExceptionHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,19 +19,21 @@ class EmbeddedKeycloakApplication {
     private final String configFile;
     private final String realmImportFile;
     private final boolean devMode;
+    private final String projectDir;
     private KeycloakMain keycloakMain;
-    private ExecutionExceptionHandler exceptionHandler;
 
     EmbeddedKeycloakApplication(String host,
                                 int port,
                                 String configFile,
                                 String realmImportFile,
-                                boolean devMode) {
+                                boolean devMode,
+                                String projectDir) {
         this.host = host;
         this.port = port;
         this.configFile = configFile;
         this.realmImportFile = realmImportFile;
         this.devMode = devMode;
+        this.projectDir = projectDir;
     }
 
     void start() {
@@ -39,6 +42,9 @@ class EmbeddedKeycloakApplication {
             return;
         }
 
+        // Setze die kc.home.dir Property. Diese ist für die Keycloak-Runtime relevant.
+        System.setProperty("kc.home.dir", projectDir);
+
         List<String> args = new ArrayList<>();
         args.add(devMode ? "start-dev" : "start");
         args.add("--http-port=" + port);
@@ -46,24 +52,24 @@ class EmbeddedKeycloakApplication {
         args.add("--config-file=" + configFile);
         args.add("--import-realm");
         args.add("--import-path=" + realmImportFile);
+        //args.add("--project-dir=" + projectDir);
 
-        log.info("Bootstrapping embedded Keycloak (mode={}, host={}, port={})", devMode ? "dev" : "prod", host, port);
+        log.info("Bootstrapping embedded Keycloak (mode={}, host={}, port={}, projectDir={})",
+            devMode ? "dev" : "prod", host, port, projectDir);
+
         keycloakMain = new KeycloakMain();
-        exceptionHandler = new ExecutionExceptionHandler();
-        keycloakMain.start(exceptionHandler, new java.io.PrintWriter(System.out, true), args.toArray(String[]::new));
+
+        // Wichtig: KeycloakMain ist ein Wrapper. Die tatsächliche Keycloak/Quarkus-Logik
+        // wird die kc.home.dir System Property verwenden, um das Basisverzeichnis zu finden.
+        keycloakMain.start(new ExecutionExceptionHandler(), new PrintWriter(System.out, true), args.toArray(String[]::new));
     }
 
     void stop() {
         if (keycloakMain != null) {
             try {
-                //KeycloakMain.DeploymentInfoHolder holder = keycloakMain.getCurrent();
-                //if (holder != null) {
-                //    holder.getShutdownHook().run();
-                //}
-                ApplicationLifecycleManager.exit();
+                Quarkus.asyncExit();
             } finally {
                 keycloakMain = null;
-                exceptionHandler = null;
             }
         }
     }
